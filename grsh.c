@@ -61,7 +61,7 @@ int main(int argc, char *argv[]){
 
         //this below for loops simpleu just prints out the value
         
-        for(int i = 0; i<num_args + 1; i++){
+        for(int i = 0; i<num_args; i++){
             printf("args[%d]: %s\n", i, arguments[i]);
         }
         
