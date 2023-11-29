@@ -24,20 +24,19 @@ int main(int argc, char *argv[]){
         return 0;  //we can exit the program after bathc mode is executed b/c batch mode should only run once
     }
 
-    //int boolean = 0;  //boolean variable to decide whether batch mode is acceptable or not
     char *input = NULL;  //take user input and store it in string literal
     size_t size = 0;
     ssize_t chars_read;
-    //int num_args = 0;
 
     while(1){  //if no arguments are entered run in interactive mode
         int num_args = 0;  //holds number of arguments
         printf("grsh> ");  //prompts user
         chars_read = getline(&input, &size, stdin);  //stores characters read in char_read
-
+        printf("chars_read: %i\n", chars_read);
         char *dup;
         dup = malloc(chars_read);  //duplicate array into a mutable array
         dup = input;
+        dup[chars_read - 1] = '\0';  //Remove new line character within input
 
         printf("Input: %s\n", dup);  //debugging purpose
 
@@ -81,6 +80,7 @@ int main(int argc, char *argv[]){
             execvp(arguments[0], arguments);
         }
         sleep(1);
+        printf("\n");
         printf("\n");
         printf("Hello World! process_id(%d)\n", getpid());
         
