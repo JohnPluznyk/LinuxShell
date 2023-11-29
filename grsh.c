@@ -46,10 +46,8 @@ int main(int argc, char *argv[]){
         }
         num_args++;  //allocate one more space for the last word
         num_args++;  //allocate one more space for NULL
-        printf("num_args: %d\n\n", (num_args));
+//        printf("num_args: %d\n\n", (num_args - 1));
         //now I need to create an array to store all my arguments like argv
-
-        //char *argumentv[num_args]; //lets hope this works trying to store arguments in an array
 
         char *arguments[num_args];
         arguments[0] = strtok(dup, " ");  //I should see if I can store it in an aray of pointers instead of just one        
@@ -60,16 +58,13 @@ int main(int argc, char *argv[]){
         arguments[num_args - 1] = NULL;  //set last arguemnt to NULL
 
         //this below for loops simpleu just prints out the value
-        
+/*        
         for(int i = 0; i<num_args; i++){  //print out arguments
             printf("args[%d]: %s\n", i, arguments[i]);
         }
-        
+*/        
 
-        //fork();//we want to fork the process and call execute
-        //exec();
-
-        pid_t p = fork();
+        pid_t p = fork();  //fork process so that it doesn't end our shell
 
         if(p<0){
             perror("fork fail");
@@ -80,9 +75,11 @@ int main(int argc, char *argv[]){
             execvp(arguments[0], arguments);
         }
         sleep(1);
+
         printf("\n");
         printf("\n");
-        printf("Hello World! process_id(%d)\n", getpid());
+
+//        printf("Hello World! process_id(%d)\n", getpid());
         
         //free allocated memory
         //free(dup);
