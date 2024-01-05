@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <sys/wait.h>
 
 //what is a shell
 //a shell simply is an interpreter
@@ -72,10 +73,11 @@ int main(int argc, char *argv[]){
         }
 
         else if (p == 0){
-            execvp(arguments[0], arguments);
+            execvp(arguments[0], arguments); // looks like it only executes only the first argument?
         }
-        sleep(1);
+        //sleep(1);  ********shouldn't use sleep we are going to try implement wait
 
+        int rc_wait = wait(NULL);
         printf("\n");
         printf("\n");
 
