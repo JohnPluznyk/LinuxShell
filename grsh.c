@@ -73,6 +73,16 @@ int main(int argc, char *argv[]){
         }
 */        
 
+        if(strcmp(arguments[0], "exit") == 0){  //not an executable process in binS
+                printf("Exiting grsh shell\n");
+                return 0;
+        }
+/*        
+        if(strcmp(arguments[0], "cd") == 0){  //not a executeable process in bin
+                printf("Changing working directory!");
+                chdir(arguments[1]);
+        }
+*/        
         pid_t p = fork();  //fork process so that it doesn't end our shell
 
         if(p<0){
@@ -81,14 +91,12 @@ int main(int argc, char *argv[]){
         }
 
         else if (p == 0){
+            
             if(strcmp(arguments[0], "cd") == 0){  //not a executeable process in bin
                 printf("Changing working directory!");
                 chdir(arguments[1]);
             }
-            else if(strcmp(arguments[0], "kill") == 0){  //not an executable process in binS
-                printf("Exiting grsh shell");
-                exit(1);
-            }
+
             else{
                 execvp(arguments[0], arguments); //doesn't work for cd
             }
