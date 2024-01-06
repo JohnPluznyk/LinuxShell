@@ -31,13 +31,21 @@ int main(int argc, char *argv[]){
 
     while(1){  //if no arguments are entered run in interactive mode
         int num_args = 0;  //holds number of arguments
+        //TODO print out the pwd
+/*      TODO need to fork this process so it doesn't end
+        
+        char *pwd[2];
+        pwd[0] = strdup("pwd");
+        pwd[1] = NULL;
+        execvp(pwd[0], pwd);
+*/
         printf("grsh> ");  //prompts user
         chars_read = getline(&input, &size, stdin);  //stores characters read in char_read
         printf("chars_read: %i\n", chars_read);
         char *dup;
         dup = malloc(chars_read);  //duplicate array into a mutable array
         dup = input;
-        dup[chars_read - 1] = '\0';  //Remove new line character within input
+        dup[chars_read - 1] = '\0';  //Remove new line character within input and set it to null terminator
 
         printf("Input: %s\n", dup);  //debugging purpose
 
@@ -58,8 +66,8 @@ int main(int argc, char *argv[]){
         
         arguments[num_args - 1] = NULL;  //set last arguemnt to NULL
 
-        //this below for loops simpleu just prints out the value
-/*        
+        //this below for loops simply just prints out the value
+/*      
         for(int i = 0; i<num_args; i++){  //print out arguments
             printf("args[%d]: %s\n", i, arguments[i]);
         }
@@ -73,9 +81,18 @@ int main(int argc, char *argv[]){
         }
 
         else if (p == 0){
-            execvp(arguments[0], arguments); // looks like it only executes only the first argument?
+            if(strcmp(arguments[0], "cd") == 0){  //not a executeable process in bin
+                printf("Changing working directory!");
+                chdir(arguments[1]);
+            }
+            else if(strcmp(arguments[0], "kill") == 0){  //not an executable process in binS
+                printf("Exiting grsh shell");
+                exit(1);
+            }
+            else{
+                execvp(arguments[0], arguments); //doesn't work for cd
+            }
         }
-        //sleep(1);  ********shouldn't use sleep we are going to try implement wait
 
         int rc_wait = wait(NULL);
         printf("\n");
@@ -83,8 +100,6 @@ int main(int argc, char *argv[]){
 
 //        printf("Hello World! process_id(%d)\n", getpid());
         
-        //free allocated memory
-        //free(dup);
         num_args = 0;
     }
 
