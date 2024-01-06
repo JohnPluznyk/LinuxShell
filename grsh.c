@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
         printf("chars_read: %i\n", chars_read);
         char *dup;
         dup = malloc(chars_read);  //duplicate array into a mutable array
-        dup = input;
+        strcpy(dup, input);  //copy the text into input
         dup[chars_read - 1] = '\0';  //Remove new line character within input and set it to null terminator
 
         printf("Input: %s\n", dup);  //debugging purpose
