@@ -1,0 +1,8 @@
+------------------------------------------------------------------------------------------------------------------------
+This file is siply for documentation on this program.
+
+Currently I have a bug where my heap forever grows.  I currently call malloc to allocate space for dup.  This
+allocates space on the heap which allow mea to store the text.  However I fail to call free which.  This means
+I never free the memory in use on the heap.  I didn't beacause it was giving me a problem earlier on.
+
+------------------------------------------------------------------------------------------------------------------------
