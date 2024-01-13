@@ -39,9 +39,9 @@ int main(int argc, char *argv[]){
         pwd[1] = NULL;
         execvp(pwd[0], pwd);
 */
-        printf("grsh> ");  //prompts user
+        printf("%d grsh> ", (int) getpid());  //prompts user
         chars_read = getline(&input, &size, stdin);  //stores characters read in char_read
-        printf("chars_read: %i\n", chars_read);
+        printf("chars_read: %lu\n", chars_read);
         char *dup;
         dup = malloc(chars_read);  //duplicate array into a mutable array
         strcpy(dup, input);  //copy the text into input
@@ -67,45 +67,50 @@ int main(int argc, char *argv[]){
         arguments[num_args - 1] = NULL;  //set last arguemnt to NULL
 
         //this below for loops simply just prints out the value
-/*      
+      
         for(int i = 0; i<num_args; i++){  //print out arguments
             printf("args[%d]: %s\n", i, arguments[i]);
         }
-*/        
+        
+        if(arguments[0] == NULL){//if input is not equal to just /n
+            continue;
+        }
 
-        if(strcmp(arguments[0], "exit") == 0){  //not an executable process in binS
+        else if(strcmp(arguments[0], "exit") == 0){  //not an executable process in binS
                 printf("Exiting grsh shell\n");
                 return 0;
         }
-/*        
-        if(strcmp(arguments[0], "cd") == 0){  //not a executeable process in bin
+        
+        else if(strcmp(arguments[0], "cd") == 0){  //not a executeable process in bin
                 printf("Changing working directory!");
                 chdir(arguments[1]);
         }
-*/        
-        pid_t p = fork();  //fork process so that it doesn't end our shell
+        
+        else{
+            pid_t p = fork();  //fork process so that it doesn't end our shell
 
-        if(p<0){
-            perror("fork fail");
-            exit(1);
-        }
-
-        else if (p == 0){
-            
-            if(strcmp(arguments[0], "cd") == 0){  //not a executeable process in bin
-                printf("Changing working directory!");
-                chdir(arguments[1]);
+            if(p<0){
+                perror("fork fail");
+                exit(1);
             }
 
-            else{
+            else if (p == 0){
+    /*            
+                if(strcmp(arguments[0], "cd") == 0){  //not a executeable process in bin
+                    printf("Changing working directory!");
+                    chdir(arguments[1]);
+                }
+    */
                 execvp(arguments[0], arguments); //doesn't work for cd
             }
+
+            int rc_wait = wait(NULL);
         }
-
-        int rc_wait = wait(NULL);
+        
         printf("\n");
         printf("\n");
 
+            free(dup);
 //        printf("Hello World! process_id(%d)\n", getpid());
         
         num_args = 0;

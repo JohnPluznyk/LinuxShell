@@ -1,8 +1,25 @@
 ------------------------------------------------------------------------------------------------------------------------
 This file is siply for documentation on this program.
+author: @John Pluznyk
 
 Currently I have a bug where my heap forever grows.  I currently call malloc to allocate space for dup.  This
 allocates space on the heap which allow mea to store the text.  However I fail to call free which.  This means
 I never free the memory in use on the heap.  I didn't beacause it was giving me a problem earlier on.
 
+Turns out I never even had to make a string called dup.  The getline() function stores the users input on memory
+allocated onto the heap.  This allows the user to modify the input directly if they need to.  This is a big help
+as I can now delete some lines.
+
 ------------------------------------------------------------------------------------------------------------------------
+1/13/2024
+
+From now on I will date my entries in this file to help me remeber each time i modify this file.
+
+Update:  Fixed bug where heap forever grows by  calling free(dup).  However I am now aware that I can make my
+code simpler.  Instead of using dup I can just use I can simply just use input due to getline() and its
+functionality.  user can now simply just press enter and should simply just create a newline.  Also fixed cd
+problem where it would create unecssary proccesses when there was no need to.  Now whenever the user uses cd it
+simply just changes the current directory and nothing else.
+
+----------------------------------------------------------------------------------------------------------------------
+
