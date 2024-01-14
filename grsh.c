@@ -95,13 +95,7 @@ int main(int argc, char *argv[]){
             }
 
             else if (p == 0){
-    /*            
-                if(strcmp(arguments[0], "cd") == 0){  //not a executeable process in bin
-                    printf("Changing working directory!");
-                    chdir(arguments[1]);
-                }
-    */
-                execvp(arguments[0], arguments); //doesn't work for cd
+                execvp(arguments[0], arguments);
             }
 
             int rc_wait = wait(NULL);
@@ -110,9 +104,7 @@ int main(int argc, char *argv[]){
         printf("\n");
         printf("\n");
 
-            free(dup);
-//        printf("Hello World! process_id(%d)\n", getpid());
-        
+        free(dup);
         num_args = 0;
     }
 

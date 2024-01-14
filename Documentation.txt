@@ -15,11 +15,12 @@ as I can now delete some lines.
 
 From now on I will date my entries in this file to help me remeber each time i modify this file.
 
-Update:  Fixed bug where heap forever grows by  calling free(dup).  However I am now aware that I can make my
-code simpler.  Instead of using dup I can just use I can simply just use input due to getline() and its
-functionality.  user can now simply just press enter and should simply just create a newline.  Also fixed cd
-problem where it would create unecssary proccesses when there was no need to.  Now whenever the user uses cd it
-simply just changes the current directory and nothing else.
+Update:  Fixed bug where heap forever grows by calling free(dup).  User can now simply just press enter and should 
+simply just create a newline.  Also fixed cd problem where it would create unecssary proccesses when there was no 
+need to.  Now whenever the user uses cd it simply just changes the current directory and nothing else.
+
+Bug:  When user enters command that doesn't exist it will causes the shell to spawn into the new process.  It
+also doesn't print error.
 
 ----------------------------------------------------------------------------------------------------------------------
 
